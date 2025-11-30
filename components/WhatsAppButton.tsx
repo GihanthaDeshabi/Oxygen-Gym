@@ -2,13 +2,21 @@
 
 import React, { useState, useEffect } from 'react'
 
-export default function WhatsAppButton() {
+interface WhatsAppButtonProps {
+  phoneNumber?: string
+  message?: string
+  position?: 'bottom-right' | 'bottom-left'
+  showTooltip?: boolean
+}
+
+export default function WhatsAppButton({
+  phoneNumber = '+94 76 969 3351',
+  message = 'Hello! I visited OXYGEN Gym website and would like to know more about membership plans.',
+  position = 'bottom-right',
+  showTooltip = true
+}: WhatsAppButtonProps) {
   const [isVisible, setIsVisible] = useState(false)
   
-  // Your WhatsApp Configuration
-  const phoneNumber = '94777288286' // Replace with your number (country code + number, no spaces)
-  const message = 'Hello! I visited your website and would like to know more.' // Default message
-
   useEffect(() => {
     // Show button after page loads (delay for smooth appearance)
     const timer = setTimeout(() => setIsVisible(true), 1000)
@@ -22,10 +30,18 @@ export default function WhatsAppButton() {
 
   if (!isVisible) return null
 
+  const positionClasses = position === 'bottom-right' 
+    ? 'bottom-6 right-6' 
+    : 'bottom-6 left-6'
+
+  const tooltipPosition = position === 'bottom-right'
+    ? 'right-16'
+    : 'left-16'
+
   return (
     <button
       onClick={handleClick}
-      className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] rounded-full shadow-lg hover:bg-[#128C7E] transition-all duration-300 hover:scale-110 group animate-bounce hover:animate-none"
+      className={`fixed ${positionClasses} z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] rounded-full shadow-lg hover:bg-[#128C7E] transition-all duration-300 hover:scale-110 group animate-bounce hover:animate-none`}
       aria-label="Chat on WhatsApp"
     >
       {/* WhatsApp Icon */}
@@ -39,11 +55,13 @@ export default function WhatsAppButton() {
       </svg>
 
       {/* Tooltip on Hover */}
-      <span className="absolute right-16 bg-gray-900 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-lg">
-        Chat with us on WhatsApp
-      </span>
+      {showTooltip && (
+        <span className={`absolute ${tooltipPosition} bg-gray-900 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-lg`}>
+          Chat with us on WhatsApp
+        </span>
+      )}
 
-      {/* Notification Dot (Optional) */}
+      {/* Notification Dot */}
       <span className="absolute -top-1 -right-1 flex h-3 w-3">
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
         <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>

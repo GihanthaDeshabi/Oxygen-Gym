@@ -1,9 +1,9 @@
-import AboutOxygenGymSection from '@/components/AboutOxygenGymSection'
+
 import ContactCtaSection from '@/components/ContactCtaSection'
 import Footer from '@/components/Footer'
-
+import GymGallerySection from '@/components/GymGallerySection'
 import Header from '@/components/Navbar'
-import VisionMissionSection from '@/components/VisionMissionSection'
+
 import React from 'react'
 
 export default function page() {
@@ -12,9 +12,9 @@ export default function page() {
       <>
       <Header />
       <div className="mt-[150px]">
-      <AboutOxygenGymSection />
-      <VisionMissionSection />
       
+      
+      <GymGallerySection />
       </div>
       <ContactCtaSection />
              <Footer/>
